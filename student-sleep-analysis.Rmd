@@ -10,7 +10,7 @@ output: html_document
 
 
 **introduction:**
-Most students have experienced acute insomnia because they tend to wory more about the assignments and tests given to them. Being a student, you cannot escape from worrying about your results too!. Chronic insomnia is the disruption of sleep that usually occurs three nights per week and lasts at least three months. some students use medications to help them sleep well, the new drug showed promising effect time of sleep    
+Most students have experienced acute insomnia because they tend to worry more about the assignments and tests given to them. Being a student, you cannot escape from worrying about your results too!. Chronic insomnia is the disruption of sleep that usually occurs three nights per week and lasts at least three months. some students use medications to help them sleep well, the new drug showed promising effect time of sleep    
 **This Data show the effect of two soporific drugs (increase in hours of sleep compared to control) on 10 students**
 
 ``` {r include = FALSE}
