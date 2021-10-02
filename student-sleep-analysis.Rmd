@@ -1,0 +1,84 @@
+---
+title: "Student Sleep Analysis"
+author: "Fatimah Alamer"
+date: "9/28/2021"
+output: html_document
+---
+
+
+
+
+
+**introduction:**
+Most students have experienced acute insomnia because they tend to wory more about the assignments and tests given to them. Being a student, you cannot escape from worrying about your results too!. Chronic insomnia is the disruption of sleep that usually occurs three nights per week and lasts at least three months. some students use medications to help them sleep well, the new drug showed promising effect time of sleep    
+**This Data show the effect of two soporific drugs (increase in hours of sleep compared to control) on 10 students**
+
+``` {r include = FALSE}
+library(tidyverse)
+     
+```
+
+**here is our data**
+```{r}
+data("sleep")
+```
+
+**summary:**
+if you call summery now it will be useless
+```{r}
+summary(sleep)
+```
+we can use dplyr package to make useful **summary** 
+
+``` {r }
+sleep %>%
+  group_by(group) %>%
+  summarise(avg = mean(extra),
+            stdev = sd(extra))
+     
+```
+
+**making our data wide:**
+If you thought that the observation for 20 students, you are like me
+let us make our data wider!
+```{r}
+sleep %>%
+  pivot_wider(names_from = "group", values_from = "extra") -> sleep_wider
+sleep
+#rename columns
+names(sleep_wider) <- c('ID','med1','med2')
+#now it is more clear for you
+sleep_wider
+```
+
+
+**lets do hypotheses testing**
+
+```{r}
+sleep%>%
+  select(extra) %>%
+  .[1:10,] -> drug1
+
+sleep%>%
+  select(extra) %>%
+  .[11:20,] -> drug2
+#t.test
+t.test(drug1,drug2,paired = TRUE)
+
+```
+There is a significant difference between the two medications!. but you cant take the medication! this is only a pilot study! we need to do on larger group participants.   
+
+you may not guess how both medications differs, let us have a boxplot!
+```{r}
+ggplot(sleep, aes(x=group, y=extra, fill=group)) +
+     geom_boxplot()+
+  scale_fill_brewer(palette="Paired")+
+  labs(title = "the effect of two drugs on increasing sleep hours")+
+theme_minimal()+
+geom_jitter(position=position_jitter(0.2))
+```
+
+
+
+**More information:**
+you may not need any medication to increase your sleep, for some people, 4 hours is more than enough! see this [video](https://www.youtube.com/watch?v=6dfD-FRq-HA)
