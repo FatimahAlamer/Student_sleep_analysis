@@ -25,7 +25,7 @@ data("sleep")
 ```
 
 
-Descriptive analysis **summary** 
+Descriptive analysis 
 
 ``` {r }
 sleep %>%
