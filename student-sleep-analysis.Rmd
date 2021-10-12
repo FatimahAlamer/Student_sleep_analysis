@@ -10,24 +10,22 @@ output: html_document
 
 
 ## **Introduction**
-Most students have experienced acute insomnia because they tend to worry more about the assignments and tests given to them. Being a student, you cannot escape from worrying about your results too!. Chronic insomnia is the disruption of sleep that usually occurs three nights per week and lasts at least three months. some students use medications to help them sleep well, the new drug showed promising effect time of sleep    
-**This Data show the effect of two soporific drugs (increase in hours of sleep compared to control) on 10 students**
+Most students have experienced acute insomnia because they tend to worry more about the assignments and tests given to them. Being a student, you cannot escape from worrying about your results too!. Chronic insomnia is the disruption of sleep that usually occurs three nights per week and lasts at least three months. some students use medications to help them sleep well,but the evidence of efficacy is still controversial. This study aims to analyze the efficacy of L-Hyoscyamine vs L.Hyoscine in increasing sleep hours on 10 students  
+
 
 ``` {r include = FALSE}
 library(tidyverse)
      
 ```
 
-### Data & Summary
+### Data:
+ We have 2 gruops: the fist group were given L-Hyoscyamine then they were given L.Hyoscine, extra is the extended sleep duration hours
 ```{r}
 data("sleep")
 ```
 
-if you call summery now it will be useless
-```{r}
-summary(sleep)
-```
-we can use dplyr package to make useful **summary** 
+
+Descriptive analysis **summary** 
 
 ``` {r }
 sleep %>%
@@ -37,37 +35,33 @@ sleep %>%
      
 ```
 
-### Making our data wider
-If you thought that the observation for 20 students, you are like me
-let us make our data wider!
+drug 2 (L.Hyoscine) has much higher mean but also higher SD, to confirm if there is a difference we must use the appropriate t.test!
+
+
+
+## Hypothiss testing
+Both of two medications were test on the same students, which means it is preferred that we use paired t.test over 2sample t.test
+### What is a paired t-test?
+A paired t-test (also known as a dependent or correlated t-test) is a statistical test that compares the means and standard deviations of two related groups to determine if there is a significant difference between the two groups.
+
+●       A significant difference occurs when the differences between groups are unlikely to be due to sampling error or chance.
+
+●       The groups can be related by being the same group of people, the same item, or being subjected to the same conditions.
+###why paired t.test?
+Paired t-tests are considered more powerful than unpaired t-tests because using the same participants or item eliminates variation between the samples that could be caused by anything other than what’s being tested.
+
+###Comparing p.vlaue
+
 ```{r}
-sleep %>%
-  pivot_wider(names_from = "group", values_from = "extra") -> sleep_wider
-sleep
-#rename columns
-names(sleep_wider) <- c('ID','med1','med2')
-#now it is more clear for you
-sleep_wider
-
-```
 
 
-## Lets do hypotheses testing
-
-
-```{r}
-sleep%>%
-  select(extra) %>%
-  .[1:10,] -> drug1
-
-sleep%>%
-  select(extra) %>%
-  .[11:20,] -> drug2
 #t.test
-t.test(drug1,drug2,paired = TRUE)
+
+t.test(extra~group,data= sleep, paired = TRUE)
+t.test(extra~group,data= sleep, paired = FALSE)
 
 ```
-There is a significant difference between the two medications!. but you cant take the medication! this is only a pilot study! we need to do on larger group participants.   
+If the data are not paired ! the test will be not significant! but because data is paired, there is a significant difference between the two medications!. but you cant take the medication! this is only a pilot study! we need to do on larger group participants.   
 
 
 ## Boxplot
@@ -85,6 +79,7 @@ geom_jitter(position=position_jitter(0.2))
 ```
 
 ### **More information**
+for more information about paird t.test, you can check [here](https://www.youtube.com/watch?v=JiQR0lHLe74)
 Some people do  not need any medication to increase your sleep, for some people, 4 hours is more than enough! see this [video](https://www.youtube.com/watch?v=6dfD-FRq-HA).
 
 
