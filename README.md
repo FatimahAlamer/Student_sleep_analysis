@@ -1,5 +1,5 @@
 # Student_sleep_analysis
- In this file, I am analyzing the  data for 10 studnet tested on two drugs (L-Hyoscyamine vs L.Hyoscine)
+ In this file, I am analyzing the  data for 10 studnets tested on two drugs (L-Hyoscyamine vs L.Hyoscine)
  You will see also:
  -Descriptive analysis  
  -How to choose the right test  
